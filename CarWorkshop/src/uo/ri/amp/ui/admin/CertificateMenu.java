@@ -7,7 +7,7 @@ public class CertificateMenu  extends BaseMenu {
 
     public CertificateMenu() {
         menuOptions = new Object[][] {
-                { "Administrador > GestiÛn de certificados", null },
+                { "Administrador > Gesti√≥n de certificados", null },
                 { "Generar certificados", 	        GenerateCertificatesAction.class },
         };
     }

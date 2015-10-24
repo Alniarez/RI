@@ -10,8 +10,8 @@ public class GradeMenu extends BaseMenu {
 
     public GradeMenu() {
         menuOptions = new Object[][] {
-                { "Administrador > GestiÛn de cursos", null },
-                { "AÒadir curso", 				    AddGradeAction.class },
+                { "Administrador > Gesti√≥n de cursos", null },
+                { "A√±adir curso", 				    AddGradeAction.class },
                 { "Modificar datos de cursos", 	    UpdateGradeAction.class },
                 { "Eliminar curso", 				DeleteGradeAction.class },
                 { "Listar cursos", 				    ListGradesAction.class },

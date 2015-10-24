@@ -12,8 +12,8 @@ public class MecanicosMenu extends BaseMenu {
 		menuOptions = new Object[][] { 
 			{"Administrador > Gestión de mecánicos", null},
 			
-			{ "Añadir mecánico", 				AddMechanicAction.class }, 
-			{ "Modificar datos de mecánico", 	UpdateMechanicAction.class }, 
+			{ "Añadir mecánico", 				AddMechanicAction.class },
+			{ "Modificar datos de mecánico", 	UpdateMechanicAction.class },
 			{ "Eliminar mecánico", 				DeleteMechanicAction.class }, 
 			{ "Listar mecánicos", 				ListMechanicsAction.class },
 		};

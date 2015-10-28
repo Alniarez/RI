@@ -5,12 +5,13 @@ import java.util.Date;
 /**
  * Created by Jorge.
  */
+
 public class Asistencia {
 
     int porcentajeAsistencia;
     private Date fechaComienzo;
     private Date fechaFin;
-    long idCurso;
+    String idCurso;
     long idMecanico;
     boolean apto;
 
@@ -22,11 +23,11 @@ public class Asistencia {
         this.apto = apto;
     }
 
-    public long getIdCurso() {
+    public String getIdCurso() {
         return idCurso;
     }
 
-    public void setIdCurso(long idCurso) {
+    public void setIdCurso(String idCurso) {
         this.idCurso = idCurso;
     }
 
@@ -61,4 +62,10 @@ public class Asistencia {
     public void setFechaFin(Date fechaFin) {
         this.fechaFin = fechaFin;
     }
+
+    //region  Comprobaciones
+    public boolean relacionEntreFechasValido(){
+        return fechaComienzo.before(fechaFin);
+    }
+    //endregion
 }

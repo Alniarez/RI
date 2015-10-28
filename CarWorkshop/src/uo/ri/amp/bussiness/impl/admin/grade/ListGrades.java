@@ -1,4 +1,4 @@
-package uo.ri.amp.bussness.impl.admin.grade;
+package uo.ri.amp.bussiness.impl.admin.grade;
 
 import alb.util.jdbc.Jdbc;
 import uo.ri.amp.conf.PersistenceFactory;
@@ -7,12 +7,16 @@ import uo.ri.common.BusinessException;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * Created by Jorge.
  */
 public class ListGrades {
 
+    private List<Map<String, Object>> result;
 
     public void execute() throws BusinessException {
 
@@ -21,20 +25,31 @@ public class ListGrades {
 
         try {
             connection = Jdbc.getConnection();
+            connection.setAutoCommit(false);
             gradegateway.setConnection(connection);
+
+            result = gradegateway.listGrades();
+
         } catch (SQLException e) {
             throw new BusinessException("No se encuentra la base de datos.", e);
         } finally {
             Jdbc.close(connection);
         }
-
-        gradegateway.listGrades();
-        //Todo guardar serultado en esta clase
     }
 
     public String getPrintableResult() {
-        //TODO procesar el resultado pasandolo a una cadena imprimible
-        return  null;
+        StringBuilder sb = new StringBuilder("Código\tNombre del curso\tHoras totales\tDescripción\n");
+        for(Map<String, Object> fila: result){
+            sb.append(fila.get("codigo"));
+            sb.append("\t");
+            sb.append(fila.get("nombre"));
+            sb.append("\t");
+            sb.append(fila.get("horasTotales"));
+            sb.append("\t");
+            sb.append(fila.get("descripcion"));
+            sb.append("\n");
+        }
+        return sb.toString();
 
     }
 }

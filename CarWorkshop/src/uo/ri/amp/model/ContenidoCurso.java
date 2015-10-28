@@ -32,4 +32,5 @@ public class ContenidoCurso {
     public void setSobre(TipoVehiculo sobre) {
         this.sobre = sobre;
     }
+
 }

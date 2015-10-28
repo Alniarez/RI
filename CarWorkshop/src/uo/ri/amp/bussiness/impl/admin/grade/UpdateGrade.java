@@ -1,4 +1,4 @@
-package uo.ri.amp.bussness.impl.admin.grade;
+package uo.ri.amp.bussiness.impl.admin.grade;
 
 import alb.util.jdbc.Jdbc;
 import uo.ri.amp.conf.PersistenceFactory;
@@ -14,18 +14,15 @@ import java.sql.SQLException;
  */
 public class UpdateGrade {
 
-    private Curso viejo;
-    private Curso nuevo;
+    private Curso curso;
 
-    public UpdateGrade(Curso viejo, Curso nuevo) {
-
-        this.viejo = viejo;
-        this.nuevo = nuevo;
+    public UpdateGrade(Curso curso) {
+        this.curso = curso;
     }
 
     public void execute() throws BusinessException {
 
-        if(! nuevo.porcentajeContenidoCursoValido())
+        if (!curso.porcentajeAcumuladoDelContenidoCursoEsValido())
             throw new BusinessException("La suma de los porcentajes de horas dedicadas a cada tipo de vehiculo deben sumar 100%.");
 
         GradeGateway gradegateway = PersistenceFactory.getGradeGateway();
@@ -33,15 +30,17 @@ public class UpdateGrade {
 
         try {
             connection = Jdbc.getConnection();
+            connection.setAutoCommit(false);
             gradegateway.setConnection(connection);
+
+            if(!gradegateway.exists(curso))
+                throw new BusinessException("No existe un curso con este código.");
+
+            gradegateway.updateGrade(curso);
         } catch (SQLException e) {
             throw new BusinessException("No se encuentra la base de datos.", e);
         } finally {
             Jdbc.close(connection);
         }
-
-        gradegateway.updateGrade(nuevo, viejo);
-
-
     }
 }

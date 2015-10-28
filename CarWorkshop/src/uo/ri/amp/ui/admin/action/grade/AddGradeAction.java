@@ -1,7 +1,6 @@
 package uo.ri.amp.ui.admin.action.grade;
 
 
-import alb.util.console.Console;
 import alb.util.menu.Action;
 import uo.ri.amp.conf.ServiceFactory;
 import uo.ri.amp.model.ContenidoCurso;
@@ -12,31 +11,34 @@ import uo.ri.common.BusinessException;
 import java.util.LinkedList;
 import java.util.List;
 
+import static alb.util.console.Console.*;
+
 public class AddGradeAction implements Action {
 
     @Override
     public void execute() throws BusinessException {
 
         // Pedir datos
-        Long codigo = Console.readLong("Código de curso");
-        String nombre = Console.readString("Nombre");
-        String descripcion = Console.readString("Descripcion");
-        int horasTotales = Console.readInt("Horas totales");
+        String codigo = readString("Código de curso");
+        String nombre = readString("Nombre");
+        String descripcion = readString("Descripcion");
+        int horasTotales = readInt("Horas totales");
 
-        List<String> tiposVehiculo = new LinkedList<>();
+        List<Long> tiposVehiculo = new LinkedList<>();
         List<Integer> horasVehiculo = new LinkedList<>();
 
         do {
-            tiposVehiculo.add(Console.readString("Tipo de vehículo"));
-            horasVehiculo.add(Console.readInt("Porcentaje de horas dedicadas vehículo"));
+            tiposVehiculo.add(readLong("Tipo de vehículo"));
+            horasVehiculo.add(readInt("Porcentaje de horas dedicadas vehículo"));
         } while (masTipos());
 
         //Generar modelo
 
         List<ContenidoCurso> contenidocuso = new LinkedList<>();
+
         for(int i=0; i<tiposVehiculo.size();i++){
             TipoVehiculo tipoVehiculo = new TipoVehiculo();
-            tipoVehiculo.setNombre(tiposVehiculo.get(i));
+            tipoVehiculo.setId(tiposVehiculo.get(i));
 
             ContenidoCurso contenidoCurso = new ContenidoCurso();
             contenidoCurso.setSobre(tipoVehiculo);
@@ -46,7 +48,7 @@ public class AddGradeAction implements Action {
         }
 
         Curso curso = new Curso();
-        curso.setId(codigo);
+        curso.setCodigo(codigo);
         curso.setNombre(nombre);
         curso.setDescripcion(descripcion);
         curso.setHorasTotales(horasTotales);
@@ -57,11 +59,10 @@ public class AddGradeAction implements Action {
 
 
         // Mostrar resultado
-        Console.println("Se ha añadido el curso.");
+        println("Se ha añadido el curso.");
     }
 
     private boolean masTipos(){
-        return Console.readString("¿Añadir más tipos? (s/n) ")
-                .equalsIgnoreCase("s");
+        return readString("¿Añadir más tipos? (s/n)").equalsIgnoreCase("s");
     }
 }

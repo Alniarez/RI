@@ -7,6 +7,15 @@ import alb.util.money.Money;
  */
 public class TipoVehiculo {
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    long id;
     String nombre;
     Money precioHora;
     int horasMaestria;

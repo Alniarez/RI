@@ -1,11 +1,8 @@
 package uo.ri.amp.conf;
 
-import uo.ri.amp.persistence.AttendanceGateway;
-import uo.ri.amp.persistence.CertificateGateway;
-import uo.ri.amp.persistence.GradeGateway;
-import uo.ri.amp.persistence.impl.AttendancegatewayImpl;
-import uo.ri.amp.persistence.impl.CertificateGatewayImpl;
-import uo.ri.amp.persistence.impl.GradeGatewayImpl;
+import uo.ri.amp.model.Mecanico;
+import uo.ri.amp.persistence.*;
+import uo.ri.amp.persistence.impl.*;
 
 /**
  * Created by Jorge.
@@ -16,11 +13,22 @@ public class PersistenceFactory {
         return new GradeGatewayImpl();
     }
 
-    public static AttendanceGateway geAttendanceGateway(){
+    public static CertificateGateway getCertificateGateway(){
+        return new CertificateGatewayImpl();
+    }
+
+    public static AttendanceGateway getAttendanceGateway() {
         return new AttendancegatewayImpl();
     }
 
-    public static CertificateGateway getCertificateGateway(){
-        return new CertificateGatewayImpl();
+    public static MechanicGateway getMechanicGateway() {
+        return new MechanicGatewayImpl();
+    }
+
+    public static BreakdownGateway getBreakdownGateway() {
+        return new BreakdownGatewayImpl();
+    }
+
+    public static VehicleGateway getVehicleGateway() { return new VehicleGatewayImpl();
     }
 }

@@ -1,4 +1,4 @@
-package uo.ri.amp.bussness.impl.admin.certificate;
+package uo.ri.amp.bussiness.impl.admin.certificate;
 
 import alb.util.jdbc.Jdbc;
 import uo.ri.amp.conf.PersistenceFactory;
@@ -20,14 +20,18 @@ public class GenerateCertificates {
 
         try {
             connection = Jdbc.getConnection();
+            connection.setAutoCommit(false);
             certificateGateway.setConnection(connection);
+
+            certificateGateway.generateCertificates();
+
         } catch (SQLException e) {
             throw new BusinessException("No se encuentra la base de datos.", e);
         } finally {
             Jdbc.close(connection);
         }
 
-        certificateGateway.generateCertificates();
+
 
 
     }

@@ -9,7 +9,7 @@ public class Curso {
 
     String nombre;
     String descripcion;
-    long id;
+    String codigo;
     int horasTotales;
     List<ContenidoCurso> contenidoCurso;
 
@@ -29,12 +29,12 @@ public class Curso {
         this.descripcion = descripcion;
     }
 
-    public long getId() {
-        return id;
+    public String getCodigo() {
+        return codigo;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
     }
 
     public int getHorasTotales() {
@@ -53,10 +53,22 @@ public class Curso {
         this.contenidoCurso = contenidoCurso;
     }
 
-    public boolean porcentajeContenidoCursoValido(){
+    //region Comprobaciones
+    public boolean porcentajeAcumuladoDelContenidoCursoEsValido(){
         int porcentajeAcumulado = 0;
         for(ContenidoCurso cc : contenidoCurso)
             porcentajeAcumulado += cc.porcentaje;
         return porcentajeAcumulado==100;
+    }
+    //endregion
+
+    @Override
+    public String toString() {
+        return "Curso{" +
+                "nombre='" + nombre + '\'' +
+                ", descripcion='" + descripcion + '\'' +
+                ", codigo='" + codigo + '\'' +
+                ", horasTotales=" + horasTotales +
+                '}';
     }
 }

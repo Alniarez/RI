@@ -1,6 +1,7 @@
 package uo.ri.amp.persistence;
 
 import uo.ri.amp.model.Mecanico;
+import uo.ri.common.BusinessException;
 
 import java.sql.Connection;
 
@@ -9,7 +10,7 @@ import java.sql.Connection;
  */
 public interface MechanicGateway {
 
-    public boolean exists(Mecanico mecanico);
+    public boolean exists(Mecanico mecanico) throws BusinessException;
 
     void setConnection(Connection connection);
 }

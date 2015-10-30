@@ -19,7 +19,7 @@ public interface AttendanceGateway {
     public void updateAttendance(Asistencia asistencia)throws BusinessException;
     public List<Map<String, Object>> listAttendance(Curso curso)throws BusinessException;
 
-    public boolean exisists(Asistencia asistencia);
+    public boolean exisists(Asistencia asistencia) throws BusinessException;
 
-    boolean exisistsAnyMechanic(Curso curso);
+    boolean exisistsAnyMechanic(Curso curso) throws BusinessException;
 }

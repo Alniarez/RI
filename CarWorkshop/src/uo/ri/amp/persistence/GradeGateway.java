@@ -24,7 +24,5 @@ public interface GradeGateway {
     public List<Map<String, Object>> listHoursByType() throws BusinessException;
     public List<Map<String, Object>> listHoursByMechanic(Mecanico mecanico);
 
-    public List<Map<String, Object>> listExpertsWithoutCertificate();
-
     public boolean exists(Curso curso) throws BusinessException;
 }

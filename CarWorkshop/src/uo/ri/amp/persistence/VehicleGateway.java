@@ -3,6 +3,7 @@ package uo.ri.amp.persistence;
 import uo.ri.amp.model.Mecanico;
 import uo.ri.amp.model.TipoVehiculo;
 import uo.ri.amp.model.Vehiculo;
+import uo.ri.common.BusinessException;
 
 import java.sql.Connection;
 
@@ -11,8 +12,8 @@ import java.sql.Connection;
  */
 public interface VehicleGateway {
 
-    public boolean exists(Vehiculo vehiculo);
-    public boolean existsType(TipoVehiculo tipoVehiculo);
+    //public boolean exists(Vehiculo vehiculo);
+    public boolean existsType(TipoVehiculo tipoVehiculo) throws BusinessException;
 
     void setConnection(Connection connection);
 }

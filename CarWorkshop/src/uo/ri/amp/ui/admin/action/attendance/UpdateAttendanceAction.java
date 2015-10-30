@@ -42,7 +42,10 @@ public class UpdateAttendanceAction implements Action {
         asistencia.setIdCurso(codigoCurso);
         asistencia.setFechaComienzo(dateIn);
         asistencia.setFechaFin(dateOut);
+        asistencia.setPorcentajeAsistencia(porcentajeAsistencia);
         asistencia.setApto(apto.equalsIgnoreCase("s"));
+
+        System.out.println(asistencia);
 
         // Procesar
         ServiceFactory.getAdminService().updateAttendance(asistencia);

@@ -1,5 +1,6 @@
 package uo.ri.amp.model;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -70,5 +71,16 @@ public class Curso {
                 ", codigo='" + codigo + '\'' +
                 ", horasTotales=" + horasTotales +
                 '}';
+    }
+
+    public boolean contenidosRepetidos() {
+        boolean repetido = false;
+        List<Long> idVehiculos = new LinkedList<>();
+        for(ContenidoCurso cc : contenidoCurso)
+            if(idVehiculos.contains(cc.getSobre().getId()))
+                repetido = true;
+            else
+                idVehiculos.add(cc.getSobre().getId());
+        return repetido;
     }
 }

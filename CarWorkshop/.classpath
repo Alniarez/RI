@@ -5,5 +5,7 @@
 	<classpathentry kind="lib" path="lib/hsqldb.jar"/>
 	<classpathentry kind="lib" path="lib/ojdbc6.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/AlbUtil"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/btc-ascii-table-1.0-sources"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/j-text-utils-0.3.3"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

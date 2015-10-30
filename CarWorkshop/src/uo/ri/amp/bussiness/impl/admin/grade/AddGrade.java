@@ -28,6 +28,12 @@ public class AddGrade {
         if (!curso.porcentajeAcumuladoDelContenidoCursoEsValido())
             throw new BusinessException("La suma de los porcentajes de horas dedicadas a cada tipo de vehiculo deben sumar 100%.");
 
+        if(curso.getHorasTotales()<=0)
+            throw new BusinessException("Debe introducir un número de horas superior a cero.");
+
+        if(curso.contenidosRepetidos())
+            throw new BusinessException("No se puede repetir el mismo tipo de vehículo en los contenidos.");
+
         GradeGateway gradegateway = PersistenceFactory.getGradeGateway();
         VehicleGateway vehicleGateway = PersistenceFactory.getVehicleGateway();
         Connection connection = null;
@@ -41,11 +47,9 @@ public class AddGrade {
             if(gradegateway.exists(curso))
                 throw new BusinessException("Ya existe un curso con este código.");
 
-            for(ContenidoCurso cc : curso.getContenidoCurso()){
+            for(ContenidoCurso cc : curso.getContenidoCurso())
                 if(!vehicleGateway.existsType(cc.getSobre()))
                     throw new BusinessException("No existe un tipo de vehículo.");
-
-            }
 
             gradegateway.addGrade(curso);
 

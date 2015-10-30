@@ -19,6 +19,14 @@ public class Asistencia {
         return apto;
     }
 
+    public String isAptoString(){
+        return (isApto()) ? "APTO" : "NO APTO";
+    }
+
+    public void setAptoString(String apto){
+        this.apto = apto.equalsIgnoreCase("APTO");
+    }
+
     public void setApto(boolean apto) {
         this.apto = apto;
     }
@@ -68,4 +76,16 @@ public class Asistencia {
         return fechaComienzo.before(fechaFin);
     }
     //endregion
+
+    @Override
+    public String toString() {
+        return "Asistencia{" +
+                "porcentajeAsistencia=" + porcentajeAsistencia +
+                ", fechaComienzo=" + fechaComienzo +
+                ", fechaFin=" + fechaFin +
+                ", idCurso='" + idCurso + '\'' +
+                ", idMecanico=" + idMecanico +
+                ", apto=" + apto +
+                '}';
+    }
 }

@@ -50,9 +50,18 @@ public class ListAttendance {
     }
 
     public String getPrintableResult() {
-        StringBuilder sb = new StringBuilder("Nombre\tFecha de finalización\t% de asisetncia\tCalificación");
+        StringBuilder sb = new StringBuilder("ID Mecnánico\tFecha de inicio\tFecha de finalización\t% de asisetncia\tCalificación\n");
         for(Map<String, Object> fila: result){
-            ;//TODO
+            sb.append(fila.get("idMecanico"));
+            sb.append("\t\t");
+            sb.append(fila.get("fechaIn"));
+            sb.append("\t\t");
+            sb.append(fila.get("fechaOut"));
+            sb.append("\t\t");
+            sb.append(fila.get("porcentaje"));
+            sb.append("\t\t");
+            sb.append(fila.get("apto"));
+            sb.append("\n");
         }
         return sb.toString();
     }

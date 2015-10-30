@@ -9,7 +9,6 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * Created by Jorge.
@@ -38,17 +37,19 @@ public class ListGrades {
     }
 
     public String getPrintableResult() {
+
         StringBuilder sb = new StringBuilder("Código\tNombre del curso\tHoras totales\tDescripción\n");
         for(Map<String, Object> fila: result){
             sb.append(fila.get("codigo"));
-            sb.append("\t");
+            sb.append("\t\t");
             sb.append(fila.get("nombre"));
-            sb.append("\t");
-            sb.append(fila.get("horasTotales"));
-            sb.append("\t");
+            sb.append("\t\t");
+            sb.append(fila.get("horastotales"));
+            sb.append("\t\t");
             sb.append(fila.get("descripcion"));
             sb.append("\n");
         }
+
         return sb.toString();
 
     }

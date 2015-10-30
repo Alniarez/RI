@@ -7,6 +7,7 @@ import uo.ri.common.BusinessException;
 
 import static alb.util.console.Console.*;
 
+
 public class DeleteGradeAction  implements Action {
 
     @Override

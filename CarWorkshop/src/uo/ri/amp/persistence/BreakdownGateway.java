@@ -2,6 +2,7 @@ package uo.ri.amp.persistence;
 
 import uo.ri.amp.model.Averia;
 import uo.ri.amp.model.Vehiculo;
+import uo.ri.common.BusinessException;
 
 import java.sql.Connection;
 import java.util.List;
@@ -15,17 +16,17 @@ public interface BreakdownGateway {
 
     public void setConnection(Connection connection);
 
-    public void addBreakdown(Averia averia);
+    public void addBreakdown(Averia averia) throws BusinessException;
 
-    boolean exists(Averia averia);
+    void removeBreakdown(Averia averia) throws BusinessException;
 
-    void assgnBreakdown(Averia averia);
+    boolean exists(Averia averia) throws BusinessException;
 
-    void updateBreakdown(Averia averia);
+    void assgnBreakdown(Averia averia) throws BusinessException;
+
+    void updateBreakdown(Averia averia) throws BusinessException;
 
     List<Map<String,Object>> listBreakdownHistory(Vehiculo vehiculo);
 
-    List<Map<String,Object>> listCompetentMechanics(Averia averia);
 
-    boolean existsVehicle(Vehiculo vehiculo);
 }

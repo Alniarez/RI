@@ -5,7 +5,9 @@ import uo.ri.amp.conf.PersistenceFactory;
 import uo.ri.amp.model.Averia;
 import uo.ri.amp.model.Vehiculo;
 import uo.ri.amp.persistence.BreakdownGateway;
+import uo.ri.amp.persistence.CertificateGateway;
 import uo.ri.amp.persistence.MechanicGateway;
+import uo.ri.amp.persistence.VehicleGateway;
 import uo.ri.common.BusinessException;
 
 import java.sql.Connection;
@@ -21,24 +23,28 @@ public class ListCompetentMechanics {
 
     private List<Map<String, Object>> result;
 
-    public ListCompetentMechanics(Averia averia) {
-        this.averia = averia;
+    public ListCompetentMechanics(Vehiculo vehiculo) {
+        this.vehiculo = vehiculo;
     }
-    private final Averia averia;
+    private final Vehiculo vehiculo;
 
     public void execute()  throws BusinessException {
-        BreakdownGateway breakdownGateway = PersistenceFactory.getBreakdownGateway();
+        VehicleGateway vehicleGateway = PersistenceFactory.getVehicleGateway();
+        CertificateGateway certificateGateway = PersistenceFactory.getCertificateGateway();
         Connection connection = null;
 
         try {
             connection = Jdbc.getConnection();
             connection.setAutoCommit(false);
-            breakdownGateway.setConnection(connection);
+            vehicleGateway.setConnection(connection);
+            certificateGateway.setConnection(connection);
 
-            if(!breakdownGateway.exists(averia))
-                throw new BusinessException("No existe la avería.");
+            if(!vehicleGateway.exists(vehiculo))
+                throw new BusinessException("No existe el vehículo.");
 
-            result = breakdownGateway.listCompetentMechanics(averia);
+            vehiculo.setId(vehicleGateway.getId(vehiculo));
+
+            result = certificateGateway.listCompetentMechanics(vehiculo);
 
         } catch (SQLException e) {
             throw new BusinessException("No se encuentra la base de datos.", e);
@@ -48,6 +54,11 @@ public class ListCompetentMechanics {
     }
 
     public String getPrintableResult() {
+        StringBuilder sb = new StringBuilder("ID Mecánico experto");
+        for(Map<String,Object> map : result){
+            sb.append(map.get("idMecanico"));
+            sb.append("\n");
+        }
         return null;
     }
 }

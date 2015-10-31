@@ -12,7 +12,9 @@ public interface ForemanService {
     public void updateBreakdown(Averia averia) throws BusinessException;
 
     public void assignBreakdown(Averia averia) throws BusinessException;
-    public String listCompetentMechanics(Averia vehiculo) throws BusinessException;
+    public String listCompetentMechanics(Vehiculo vehiculo) throws BusinessException;
 
     public String listBreakdownHistory(Vehiculo vehiculo) throws BusinessException;
+
+    void removeBreakdown(Averia averia) throws BusinessException;
 }

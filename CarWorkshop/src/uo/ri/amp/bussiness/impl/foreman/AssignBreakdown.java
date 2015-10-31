@@ -5,7 +5,9 @@ import uo.ri.amp.conf.PersistenceFactory;
 import uo.ri.amp.model.Averia;
 import uo.ri.amp.model.Mecanico;
 import uo.ri.amp.persistence.BreakdownGateway;
+import uo.ri.amp.persistence.CertificateGateway;
 import uo.ri.amp.persistence.MechanicGateway;
+import uo.ri.amp.persistence.VehicleGateway;
 import uo.ri.common.BusinessException;
 
 import java.sql.Connection;
@@ -24,6 +26,8 @@ public class AssignBreakdown {
     public void execute() throws BusinessException{
         BreakdownGateway breakdownGateway = PersistenceFactory.getBreakdownGateway();
         MechanicGateway mechanicGateway = PersistenceFactory.getMechanicGateway();
+        CertificateGateway certificateGateway = PersistenceFactory.getCertificateGateway();
+        VehicleGateway vehicleGateway = PersistenceFactory.getVehicleGateway();
 
         Connection connection = null;
         try {
@@ -32,13 +36,20 @@ public class AssignBreakdown {
 
             mechanicGateway.setConnection(connection);
             breakdownGateway.setConnection(connection);
+            certificateGateway.setConnection(connection);
+            vehicleGateway.setConnection(connection);
+
+            averia.getVehiculo().setId(vehicleGateway.getId(averia.getVehiculo()));
 
             if(!breakdownGateway.exists(averia))
-                 throw new BusinessException("No existe la avería.");
+                 throw new BusinessException("No se encuentra una avería para el vehículo en la fecha.");
 
             Mecanico mecanico = averia.getMecanico();
             if(!mechanicGateway.exists(mecanico))
                 throw new BusinessException("No existe el mecánico.");
+
+            if(!certificateGateway.isCompetent(averia))
+                throw new BusinessException("El mecánico no tiene formación.");
 
             breakdownGateway.assgnBreakdown(averia);
 

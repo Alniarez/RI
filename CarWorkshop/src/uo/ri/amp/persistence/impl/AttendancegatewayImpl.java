@@ -37,7 +37,6 @@ public class AttendancegatewayImpl implements AttendanceGateway {
             ps.execute();
             connection.commit();
         } catch (SQLException e) {
-            e.printStackTrace();
             throw new BusinessException("Se produjo un error en la base de datos." + e.getErrorCode(), e);
         } finally {
             Jdbc.close(ps);
@@ -65,15 +64,16 @@ public class AttendancegatewayImpl implements AttendanceGateway {
         PreparedStatement ps = null;
         try {
             ps = connection.prepareStatement(Conf.get("asistencia_update"));
-            ps.setString(5, asistencia.getIdCurso());
-            ps.setLong  (6, asistencia.getIdMecanico());
             ps.setDate  (1, new java.sql.Date(asistencia.getFechaComienzo().getTime()));
             ps.setDate  (2, new java.sql.Date(asistencia.getFechaFin().getTime()));
             ps.setInt   (3, asistencia.getPorcentajeAsistencia());
             ps.setString(4, asistencia.isAptoString());
+            ps.setString(5, asistencia.getIdCurso());
+            ps.setLong  (6, asistencia.getIdMecanico());
             ps.execute();
             connection.commit();
         } catch (SQLException e) {
+            e.printStackTrace();
             throw new BusinessException("Se produjo un error en la base de datos." + e.getErrorCode(), e);
         } finally {
             Jdbc.close(ps);

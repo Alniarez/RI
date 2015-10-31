@@ -21,7 +21,25 @@ public class VehicleGatewayImpl implements VehicleGateway {
 
     @Override
     public void setConnection(Connection connection) {
-        this.connection=connection;
+        this.connection = connection;
+    }
+
+    @Override
+    public boolean exists(Vehiculo vehiculo) throws BusinessException {
+        ResultSet rs = null;
+        PreparedStatement ps = null;
+        try {
+            ps = connection.prepareStatement(Conf.get("vehiculo_select_matricula"));
+            ps.setString(1, vehiculo.getMacricula());
+            rs = ps.executeQuery();
+            while (rs.next())
+                return true;
+            return false;
+        } catch (SQLException e) {
+            throw new BusinessException("Se produjo un error en la base de datos.", e);
+        } finally {
+            Jdbc.close(rs, ps);
+        }
     }
 
     @Override
@@ -32,12 +50,30 @@ public class VehicleGatewayImpl implements VehicleGateway {
             ps = connection.prepareStatement(Conf.get("vehiculo_select_exists"));
             ps.setLong(1, tipoVehiculo.getId());
             rs = ps.executeQuery();
-            while(rs.next())
+            while (rs.next())
                 return true;
 
             return false;
         } catch (SQLException e) {
-            throw new BusinessException("Se prodijo un error en la base de datos.",e);
+            throw new BusinessException("Se prodijo un error en la base de datos.", e);
+        } finally {
+            Jdbc.close(rs, ps);
+        }
+    }
+
+    @Override
+    public Long getId(Vehiculo vehiculo) throws BusinessException {
+        ResultSet rs = null;
+        PreparedStatement ps = null;
+        try {
+            ps = connection.prepareStatement(Conf.get("vehiculo_select_matricula"));
+            ps.setString(1, vehiculo.getMacricula());
+            rs = ps.executeQuery();
+            while (rs.next())
+                return rs.getLong(1);
+            return null;
+        } catch (SQLException e) {
+            throw new BusinessException("Se produjo un error en la base de datos.", e);
         } finally {
             Jdbc.close(rs, ps);
         }

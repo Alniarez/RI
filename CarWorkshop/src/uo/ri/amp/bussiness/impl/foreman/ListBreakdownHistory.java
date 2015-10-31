@@ -5,6 +5,7 @@ import uo.ri.amp.conf.PersistenceFactory;
 import uo.ri.amp.model.Averia;
 import uo.ri.amp.model.Vehiculo;
 import uo.ri.amp.persistence.BreakdownGateway;
+import uo.ri.amp.persistence.VehicleGateway;
 import uo.ri.common.BusinessException;
 
 import java.sql.Connection;
@@ -28,14 +29,16 @@ public class ListBreakdownHistory {
 
     public void execute() throws BusinessException {
         BreakdownGateway breakdownGateway = PersistenceFactory.getBreakdownGateway();
+        VehicleGateway vehicleGateway = PersistenceFactory.getVehicleGateway();
         Connection connection = null;
 
         try {
             connection = Jdbc.getConnection();
             connection.setAutoCommit(false);
             breakdownGateway.setConnection(connection);
+            vehicleGateway.setConnection(connection);
 
-            if(!breakdownGateway.existsVehicle(vehiculo))
+            if(!vehicleGateway.exists(vehiculo))
                 throw new BusinessException("No existe el vehículo.");
 
             result = breakdownGateway.listBreakdownHistory(vehiculo);
@@ -48,6 +51,7 @@ public class ListBreakdownHistory {
     }
 
     public String getPrintableResult() {
+        //TODO
         return null;
     }
 

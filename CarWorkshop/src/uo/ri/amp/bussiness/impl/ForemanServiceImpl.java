@@ -30,8 +30,8 @@ public class ForemanServiceImpl implements ForemanService {
     }
 
     @Override
-    public String listCompetentMechanics(Averia averia) throws BusinessException {
-        ListCompetentMechanics listCompetentMechanics = new ListCompetentMechanics(averia);
+    public String listCompetentMechanics(Vehiculo vehiculo) throws BusinessException {
+        ListCompetentMechanics listCompetentMechanics = new ListCompetentMechanics(vehiculo);
         listCompetentMechanics.execute();
         return listCompetentMechanics.getPrintableResult();
     }
@@ -41,5 +41,11 @@ public class ForemanServiceImpl implements ForemanService {
         ListBreakdownHistory listBreakdownHistory = new ListBreakdownHistory(vehiculo);
         listBreakdownHistory.execute();
         return listBreakdownHistory.getPrintableResult();
+    }
+
+    @Override
+    public void removeBreakdown(Averia averia) throws BusinessException {
+        RemoveBreakdown removeBreakdown = new RemoveBreakdown(averia);
+        removeBreakdown.execute();
     }
 }

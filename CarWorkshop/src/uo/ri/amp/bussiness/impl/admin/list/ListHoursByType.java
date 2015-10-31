@@ -38,6 +38,23 @@ public class ListHoursByType {
     }
 
     public String getPrintableResult() {
-        return null;
+        StringBuilder sb = new StringBuilder();
+        String tipo = "";
+        for(Map<String, Object> map : result){
+            if(!tipo.equalsIgnoreCase(map.get("nombreTiposHeviculo").toString())) {
+                tipo = map.get("nombreTiposHeviculo").toString();
+                sb.append(tipo);
+                sb.append("\n");
+            }
+            sb.append("\t");
+            sb.append(map.get("nombre"));
+            sb.append(" ");
+            sb.append(map.get("apellidos"));
+            sb.append(" ");
+            sb.append(map.get("horas"));
+            sb.append("\n");
+        }
+        return sb.toString();
     }
+
 }

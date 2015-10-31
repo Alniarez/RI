@@ -1,7 +1,7 @@
 package uo.ri.amp.conf;
 
-    import java.io.IOException;
-    import java.util.Properties;
+import java.io.IOException;
+import java.util.Properties;
 
 public class Conf {
 

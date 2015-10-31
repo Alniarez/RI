@@ -23,7 +23,7 @@ public class DeleteBreakdownAction implements Action {
         averia.setId(id);
 
         //Procesar
-        ServiceFactory.getForemanService().updateBreakdown(averia);
+        ServiceFactory.getForemanService().removeBreakdown(averia);
 
         //Mostrar resultado
         println("Se ha eliminado la avería correctamente.");

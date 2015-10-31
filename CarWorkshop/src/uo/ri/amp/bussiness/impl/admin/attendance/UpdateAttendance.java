@@ -50,7 +50,7 @@ public class UpdateAttendance {
         try {
             connection = Jdbc.getConnection();
             connection.setAutoCommit(false);
-            attendanceGateway.setConnection(connection);
+            mechanicGateway.setConnection(connection);
             gradeGateway.setConnection(connection);
             attendanceGateway.setConnection(connection);
 

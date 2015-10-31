@@ -16,9 +16,6 @@ import java.util.Objects;
  * Created by Jorge.
  */
 public class ListHoursByMechanic {
-    //TODO pedir por UI el mecanico
-    //TODO comprobar que existe
-
     private List<Map<String, Object>> result;
     private Mecanico mecanico;
 
@@ -45,6 +42,21 @@ public class ListHoursByMechanic {
     }
 
     public String getPrintableResult() {
-        return null;
+        StringBuilder sb = new StringBuilder();
+        Map<String, Object> horas = result.get(0);
+        sb.append("Total de horas de los cursos: ");
+        sb.append(horas.get("horasTotales"));
+        sb.append("\n");
+        sb.append("Total de horas asistidas: ");
+        sb.append(horas.get("horasCursadas"));
+        sb.append("\n");
+        for(int i = 1; i<result.size(); i++){
+            sb.append(result.get(i).get("tipo"));
+            sb.append(": ");
+            sb.append(result.get(i).get("horas"));
+            sb.append("\n");
+        }
+
+        return sb.toString();
     }
 }

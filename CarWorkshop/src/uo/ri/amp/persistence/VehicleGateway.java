@@ -12,8 +12,11 @@ import java.sql.Connection;
  */
 public interface VehicleGateway {
 
-    //public boolean exists(Vehiculo vehiculo);
+    public boolean exists(Vehiculo vehiculo) throws BusinessException;
+
     public boolean existsType(TipoVehiculo tipoVehiculo) throws BusinessException;
+
+    public Long getId(Vehiculo vehiculo) throws BusinessException;
 
     void setConnection(Connection connection);
 }

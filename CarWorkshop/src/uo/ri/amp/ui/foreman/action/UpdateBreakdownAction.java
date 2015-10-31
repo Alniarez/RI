@@ -23,7 +23,6 @@ public class UpdateBreakdownAction implements Action {
     public void execute() throws Exception {
 
         // Pedir datos
-        long id = readLong("ID de la avería.");
         String matricula = readString("Matricula del coche");
         String descripcion = readString("Descripción de la avería");
         String fecha = readString("Fecha de entrada (dd/mm/yyyy)");
@@ -44,7 +43,6 @@ public class UpdateBreakdownAction implements Action {
         averia.setDescripcion(descripcion);
         averia.setFecha(fechaEntrada);
         averia.setStatus(Averia.AveriaStatus.ABIERTA);
-        averia.setId(id);
 
         //Procesar
         ServiceFactory.getForemanService().updateBreakdown(averia);

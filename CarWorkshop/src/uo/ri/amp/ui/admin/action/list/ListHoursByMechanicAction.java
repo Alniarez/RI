@@ -13,7 +13,7 @@ public class ListHoursByMechanicAction implements Action {
     @Override
     public void execute() throws Exception {
 
-        long idMecanico = readLong("ID de mecánico.");
+        long idMecanico = readLong("ID de mecánico");
 
         Mecanico mecanico = new Mecanico();
         mecanico.setId(idMecanico);

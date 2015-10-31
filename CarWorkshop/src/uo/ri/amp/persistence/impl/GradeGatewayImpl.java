@@ -163,7 +163,7 @@ public class GradeGatewayImpl implements GradeGateway {
         } finally {
             Jdbc.close(rs, ps);
         }
-        return null;
+        return result;
     }
 
     @Override

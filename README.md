@@ -1,5 +1,7 @@
 # RI
-Práctica de la asignatura Repositorios de Información.
+Práctica 1 de la asignatura Repositorios de Información.
+
+Universidad de Oviedo
 
 31/10/2015
 

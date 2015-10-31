@@ -4,7 +4,6 @@ import alb.util.jdbc.Jdbc;
 import uo.ri.amp.conf.Conf;
 import uo.ri.amp.model.Averia;
 import uo.ri.amp.model.Certificado;
-import uo.ri.amp.model.Mecanico;
 import uo.ri.amp.model.Vehiculo;
 import uo.ri.amp.persistence.CertificateGateway;
 import uo.ri.common.BusinessException;
@@ -38,7 +37,8 @@ public class CertificateGatewayImpl implements CertificateGateway {
             ps.executeUpdate();
             connection.commit();
         } catch (SQLException e) {
-            throw new BusinessException("Se produjo un error en la base de datos.", e);
+            rollback();
+            throw new BusinessException("Se produjo un error en la base de datos." + e.getSQLState(), e);
         } finally {
             Jdbc.close(ps);
         }
@@ -46,17 +46,18 @@ public class CertificateGatewayImpl implements CertificateGateway {
 
     @Override
     public void generateCertificates(List<Certificado> certificados) throws BusinessException {
-        for(Certificado certificado : certificados)
+        for (Certificado certificado : certificados)
             generateCertificate(certificado);
         try {
             connection.commit();
         } catch (SQLException e) {
+            rollback();
             throw new BusinessException("Se produjo un error en la base de datos.", e);
         }
     }
 
     @Override
-    public List<Map<String, Object>> listExpertsWithoutCertificate()throws BusinessException {
+    public List<Map<String, Object>> listExpertsWithoutCertificate() throws BusinessException {
         List<Map<String, Object>> result = new LinkedList<>();
         Map<String, Object> map;
         Statement st = null;
@@ -71,6 +72,7 @@ public class CertificateGatewayImpl implements CertificateGateway {
                 result.add(map);
             }
         } catch (SQLException e) {
+            rollback();
             throw new BusinessException("Se produjo un error en la base de datos.", e);
         } finally {
             Jdbc.close(rs, st);
@@ -86,13 +88,17 @@ public class CertificateGatewayImpl implements CertificateGateway {
         ResultSet rs = null;
         try {
             st = connection.prepareStatement(Conf.get("vehiculo_select_tipo"));
-            st.setLong(1,vehiculo.getId());
+            st.setLong(1, vehiculo.getId());
+            rs = st.executeQuery();
             while (rs.next()) {
                 map = new HashMap<String, Object>();
                 map.put("idMecanico", rs.getLong(1));
+                map.put("nombre", rs.getString(2));
+                map.put("apellido", rs.getString(2));
                 result.add(map);
             }
         } catch (SQLException e) {
+            rollback();
             throw new BusinessException("Se produjo un error en la base de datos.", e);
         } finally {
             Jdbc.close(rs, st);
@@ -104,18 +110,28 @@ public class CertificateGatewayImpl implements CertificateGateway {
     public boolean isCompetent(Averia averia) throws BusinessException {
         PreparedStatement ps = null;
         ResultSet rs = null;
-        try{
+        try {
             ps = connection.prepareStatement(Conf.get("experto_select"));
-            ps.setLong(1,averia.getMecanico().getId());
-            ps.setLong(2,averia.getVehiculo().getId());
+            ps.setLong(1, averia.getMecanico().getId());
+            ps.setLong(2, averia.getVehiculo().getId());
             rs = ps.executeQuery();
-            while(rs.next())
+            while (rs.next())
                 return true;
             return false;
         } catch (SQLException e) {
+            rollback();
             throw new BusinessException("Se produjo un error en la base de datos.", e);
         } finally {
-            Jdbc.close(rs,ps);
+            Jdbc.close(rs, ps);
+        }
+    }
+
+    private void rollback() {
+        if(connection==null)
+            return;
+        try {
+            connection.rollback();
+        } catch (SQLException ignored) {
         }
     }
 }

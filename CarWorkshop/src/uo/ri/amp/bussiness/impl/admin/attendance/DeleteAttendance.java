@@ -21,26 +21,19 @@ public class DeleteAttendance {
     }
 
     public void execute() throws BusinessException {
-
-        AttendanceGateway attendanceGateway= PersistenceFactory.getAttendanceGateway();
+        AttendanceGateway attendanceGateway = PersistenceFactory.getAttendanceGateway();
         Connection connection = null;
-
         try {
             connection = Jdbc.getConnection();
             connection.setAutoCommit(false);
             attendanceGateway.setConnection(connection);
-
-            if(! attendanceGateway.exisists(asistencia))
+            if (!attendanceGateway.exisists(asistencia))
                 throw new BusinessException("No existe esta asistenia.");
-
             attendanceGateway.deleteAttendance(asistencia);
-
         } catch (SQLException e) {
             throw new BusinessException("No se encuentra la base de datos.", e);
         } finally {
             Jdbc.close(connection);
         }
-
-
     }
 }

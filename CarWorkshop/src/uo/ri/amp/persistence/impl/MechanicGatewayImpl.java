@@ -35,9 +35,19 @@ public class MechanicGatewayImpl implements MechanicGateway {
                 return true;
             return false;
         } catch (SQLException e) {
+            rollback();
             throw new BusinessException("Se produjo un error en la base de datos.", e);
         } finally {
             Jdbc.close(rs, ps);
+        }
+    }
+
+    private void rollback() {
+        if(connection==null)
+            return;
+        try {
+            connection.rollback();
+        } catch (SQLException ignored) {
         }
     }
 }

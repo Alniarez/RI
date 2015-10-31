@@ -18,7 +18,7 @@ public class ForemanServiceImpl implements ForemanService {
     }
 
     @Override
-    public void updateBreakdown(Averia averia) throws BusinessException{
+    public void updateBreakdown(Averia averia) throws BusinessException {
         UpdateBreakdown updateBreakdown = new UpdateBreakdown(averia);
         updateBreakdown.execute();
     }

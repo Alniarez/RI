@@ -9,27 +9,21 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * Created by Jorge.
  */
 public class ListHoursByType {
-
-
     private List<Map<String, Object>> result;
 
     public void execute() throws BusinessException {
         GradeGateway gradeGateway = PersistenceFactory.getGradeGateway();
         Connection connection = null;
-
         try {
             connection = Jdbc.getConnection();
             connection.setAutoCommit(false);
             gradeGateway.setConnection(connection);
-
-            result =  gradeGateway.listHoursByType();
-
+            result = gradeGateway.listHoursByType();
         } catch (SQLException e) {
             throw new BusinessException("No se encuentra la base de datos.", e);
         } finally {
@@ -40,8 +34,8 @@ public class ListHoursByType {
     public String getPrintableResult() {
         StringBuilder sb = new StringBuilder();
         String tipo = "";
-        for(Map<String, Object> map : result){
-            if(!tipo.equalsIgnoreCase(map.get("nombreTiposHeviculo").toString())) {
+        for (Map<String, Object> map : result) {
+            if (!tipo.equalsIgnoreCase(map.get("nombreTiposHeviculo").toString())) {
                 tipo = map.get("nombreTiposHeviculo").toString();
                 sb.append(tipo);
                 sb.append("\n");
@@ -56,5 +50,4 @@ public class ListHoursByType {
         }
         return sb.toString();
     }
-
 }

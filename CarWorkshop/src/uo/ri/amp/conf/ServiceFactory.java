@@ -9,7 +9,7 @@ import uo.ri.amp.bussiness.impl.ForemanServiceImpl;
  */
 public class ServiceFactory {
 
-    static public AdminService getAdminService(){
+    static public AdminService getAdminService() {
         return new AdminServiceImpl();
     }
 

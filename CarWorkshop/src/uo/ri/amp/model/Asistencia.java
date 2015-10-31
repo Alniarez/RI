@@ -19,11 +19,11 @@ public class Asistencia {
         return apto;
     }
 
-    public String isAptoString(){
+    public String isAptoString() {
         return (isApto()) ? "APTO" : "NO APTO";
     }
 
-    public void setAptoString(String apto){
+    public void setAptoString(String apto) {
         this.apto = apto.equalsIgnoreCase("APTO");
     }
 
@@ -72,7 +72,7 @@ public class Asistencia {
     }
 
     //region  Comprobaciones
-    public boolean relacionEntreFechasValido(){
+    public boolean relacionEntreFechasValido() {
         return fechaComienzo.before(fechaFin);
     }
     //endregion

@@ -7,7 +7,6 @@ public class RegistrarAveriaAction implements Action {
 
 	@Override
 	public void execute() throws BusinessException {
-		// TODO Auto-generated method stub
 		
 	}
 

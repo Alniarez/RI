@@ -9,19 +9,26 @@ import uo.ri.common.BusinessException;
  * Created by Jorge.
  */
 public interface AdminService {
-    public void addGrade(Curso curso) throws BusinessException;
-    public void deleteGrade(Curso curso) throws BusinessException;
-    public void updateGrade(Curso curso) throws BusinessException;
-    public String listGrades()throws BusinessException;
 
-    public void addAttendance(Asistencia asistencia) throws BusinessException;
-    public void deleteAttendance(Asistencia asistencia) throws BusinessException;
-    public void updateAttendance(Asistencia asistencia) throws BusinessException;
-    public String listAttendance(Curso curso)throws BusinessException;
+    void addGrade(Curso curso) throws BusinessException;
 
-    public void generateCertificates() throws BusinessException;
+    void deleteGrade(Curso curso) throws BusinessException;
 
-    public String listHoursByType() throws BusinessException;
+    void updateGrade(Curso curso) throws BusinessException;
 
-    public String listHoursByMechanic(Mecanico mecanico) throws BusinessException;
+    String listGrades() throws BusinessException;
+
+    void addAttendance(Asistencia asistencia) throws BusinessException;
+
+    void deleteAttendance(Asistencia asistencia) throws BusinessException;
+
+    void updateAttendance(Asistencia asistencia) throws BusinessException;
+
+    String listAttendance(Curso curso) throws BusinessException;
+
+    void generateCertificates() throws BusinessException;
+
+    String listHoursByType() throws BusinessException;
+
+    String listHoursByMechanic(Mecanico mecanico) throws BusinessException;
 }

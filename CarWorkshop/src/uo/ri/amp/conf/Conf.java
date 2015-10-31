@@ -20,7 +20,7 @@ public class Conf {
     }
 
     public static String get(String key) {
-        return getInstance().getProperty( key );
+        return getInstance().getProperty(key);
     }
 
     private String getProperty(String key) {

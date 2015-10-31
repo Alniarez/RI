@@ -55,11 +55,11 @@ public class Curso {
     }
 
     //region Comprobaciones
-    public boolean porcentajeAcumuladoDelContenidoCursoEsValido(){
+    public boolean porcentajeAcumuladoDelContenidoCursoEsValido() {
         int porcentajeAcumulado = 0;
-        for(ContenidoCurso cc : contenidoCurso)
+        for (ContenidoCurso cc : contenidoCurso)
             porcentajeAcumulado += cc.porcentaje;
-        return porcentajeAcumulado==100;
+        return porcentajeAcumulado == 100;
     }
     //endregion
 
@@ -76,8 +76,8 @@ public class Curso {
     public boolean contenidosRepetidos() {
         boolean repetido = false;
         List<Long> idVehiculos = new LinkedList<>();
-        for(ContenidoCurso cc : contenidoCurso)
-            if(idVehiculos.contains(cc.getSobre().getId()))
+        for (ContenidoCurso cc : contenidoCurso)
+            if (idVehiculos.contains(cc.getSobre().getId()))
                 repetido = true;
             else
                 idVehiculos.add(cc.getSobre().getId());

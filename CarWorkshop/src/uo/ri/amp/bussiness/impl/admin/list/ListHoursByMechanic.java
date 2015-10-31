@@ -16,24 +16,22 @@ import java.util.Objects;
  * Created by Jorge.
  */
 public class ListHoursByMechanic {
+
     private List<Map<String, Object>> result;
     private Mecanico mecanico;
 
-    public ListHoursByMechanic(Mecanico mecanico){
+    public ListHoursByMechanic(Mecanico mecanico) {
         this.mecanico = mecanico;
     }
 
     public void execute() throws BusinessException {
         GradeGateway gradeGateway = PersistenceFactory.getGradeGateway();
         Connection connection = null;
-
         try {
             connection = Jdbc.getConnection();
             connection.setAutoCommit(false);
             gradeGateway.setConnection(connection);
-
             result = gradeGateway.listHoursByMechanic(mecanico);
-
         } catch (SQLException e) {
             throw new BusinessException("No se encuentra la base de datos.", e);
         } finally {
@@ -50,13 +48,12 @@ public class ListHoursByMechanic {
         sb.append("Total de horas asistidas: ");
         sb.append(horas.get("horasCursadas"));
         sb.append("\n");
-        for(int i = 1; i<result.size(); i++){
+        for (int i = 1; i < result.size(); i++) {
             sb.append(result.get(i).get("tipo"));
             sb.append(": ");
             sb.append(result.get(i).get("horas"));
             sb.append("\n");
         }
-
         return sb.toString();
     }
 }

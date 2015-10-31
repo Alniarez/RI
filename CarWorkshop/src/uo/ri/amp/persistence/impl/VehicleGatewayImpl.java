@@ -36,6 +36,7 @@ public class VehicleGatewayImpl implements VehicleGateway {
                 return true;
             return false;
         } catch (SQLException e) {
+            rollback();
             throw new BusinessException("Se produjo un error en la base de datos.", e);
         } finally {
             Jdbc.close(rs, ps);
@@ -55,6 +56,7 @@ public class VehicleGatewayImpl implements VehicleGateway {
 
             return false;
         } catch (SQLException e) {
+            rollback();
             throw new BusinessException("Se prodijo un error en la base de datos.", e);
         } finally {
             Jdbc.close(rs, ps);
@@ -73,10 +75,19 @@ public class VehicleGatewayImpl implements VehicleGateway {
                 return rs.getLong(1);
             return null;
         } catch (SQLException e) {
+            rollback();
             throw new BusinessException("Se produjo un error en la base de datos.", e);
         } finally {
             Jdbc.close(rs, ps);
         }
     }
 
+    private void rollback() {
+        if(connection==null)
+            return;
+        try {
+            connection.rollback();
+        } catch (SQLException ignored) {
+        }
+    }
 }

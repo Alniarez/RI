@@ -3,9 +3,16 @@ package uo.ri.amp.ui.foreman.action;
 import alb.util.menu.Action;
 import uo.ri.amp.conf.ServiceFactory;
 import uo.ri.amp.model.Averia;
+import uo.ri.amp.model.Vehiculo;
+import uo.ri.common.BusinessException;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import static alb.util.console.Console.println;
 import static alb.util.console.Console.readLong;
+import static alb.util.console.Console.readString;
 
 /**
  * Created by Jorge.
@@ -16,11 +23,24 @@ public class DeleteBreakdownAction implements Action {
     public void execute() throws Exception {
 
         // Pedir datos
-        long id = readLong("ID de la avería.");
+        String matricula = readString("Matricula del coche");
+        String fecha = readString("Fecha de entrada (dd/mm/yyyy)");
 
-        // Generar modelo
+        Vehiculo vehiculo = new Vehiculo();
+        vehiculo.setMacricula(matricula);
+
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        Date fechaEntrada = null;
+        try {
+            fechaEntrada = sdf.parse(fecha);
+        } catch (ParseException e) {
+            throw new BusinessException("Error en el formato de la fecha.", e);
+        }
+
         Averia averia = new Averia();
-        averia.setId(id);
+        averia.setVehiculo(vehiculo);
+        averia.setFecha(fechaEntrada);
 
         //Procesar
         ServiceFactory.getForemanService().removeBreakdown(averia);

@@ -1,6 +1,5 @@
 package uo.ri.amp.conf;
 
-import uo.ri.amp.model.Mecanico;
 import uo.ri.amp.persistence.*;
 import uo.ri.amp.persistence.impl.*;
 
@@ -13,7 +12,7 @@ public class PersistenceFactory {
         return new GradeGatewayImpl();
     }
 
-    public static CertificateGateway getCertificateGateway(){
+    public static CertificateGateway getCertificateGateway() {
         return new CertificateGatewayImpl();
     }
 
@@ -29,6 +28,7 @@ public class PersistenceFactory {
         return new BreakdownGatewayImpl();
     }
 
-    public static VehicleGateway getVehicleGateway() { return new VehicleGatewayImpl();
+    public static VehicleGateway getVehicleGateway() {
+        return new VehicleGatewayImpl();
     }
 }

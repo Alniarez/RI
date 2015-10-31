@@ -30,15 +30,11 @@ public class AddMechanic {
             connection = Jdbc.getConnection();
             mecanicoGateway.setConnection(connection);
         } catch (SQLException e) {
-            //No hay base de datos
-            //TODO mejorar el error
-        }finally {
+            throw new BusinessException("No se encuentra la base de datos.", e);
+        } finally {
             Jdbc.close(connection);
         }
         mecanicoGateway.save(nombre,apellidos);
-
-
-
-	}
+    }
 
 }

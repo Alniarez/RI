@@ -36,7 +36,8 @@ public class GradeGatewayImpl implements GradeGateway {
             addContenidoCurso(curso);
             connection.commit();
         } catch (SQLException e) {
-            throw new BusinessException("Se produjo un error en la base de datos. [Error " + e.getErrorCode(), e);
+            rollback();
+            throw new BusinessException("Se produjo un error en la base de datos.", e);
         } finally {
             Jdbc.close(ps);
         }
@@ -52,6 +53,7 @@ public class GradeGatewayImpl implements GradeGateway {
             ps.executeUpdate();
             connection.commit();
         } catch (SQLException e) {
+            rollback();
             throw new BusinessException("Se produjo un error en la base de datos.", e);
         } finally {
             Jdbc.close(ps);
@@ -74,6 +76,7 @@ public class GradeGatewayImpl implements GradeGateway {
             Jdbc.close(ps);
             connection.commit();
         } catch (SQLException e) {
+            rollback();
             throw new BusinessException("Se produjo un error en la base de datos.", e);
         }
     }
@@ -96,6 +99,7 @@ public class GradeGatewayImpl implements GradeGateway {
                 result.add(map);
             }
         } catch (SQLException e) {
+            rollback();
             throw new BusinessException("Se produjo un error en la base de datos.", e);
         } finally {
             Jdbc.close(rs, st);
@@ -123,6 +127,7 @@ public class GradeGatewayImpl implements GradeGateway {
                 result.add(map);
             }
         } catch (SQLException e) {
+            rollback();
             throw new BusinessException("Se produjo un error en la base de datos.", e);
         } finally {
             Jdbc.close(rs, st);
@@ -131,7 +136,7 @@ public class GradeGatewayImpl implements GradeGateway {
     }
 
     @Override
-    public List<Map<String, Object>> listHoursByMechanic(Mecanico mecanico) {
+    public List<Map<String, Object>> listHoursByMechanic(Mecanico mecanico) throws BusinessException {
         Long id = mecanico.getId();
         List<Map<String, Object>> result = new LinkedList<>();
         Map<String, Object> map;
@@ -159,7 +164,8 @@ public class GradeGatewayImpl implements GradeGateway {
                 result.add(map);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            rollback();
+            throw new BusinessException("Se produjo un error en la base de datos.", e);
         } finally {
             Jdbc.close(rs, ps);
         }
@@ -178,6 +184,7 @@ public class GradeGatewayImpl implements GradeGateway {
                 return true;
             return false;
         } catch (SQLException e) {
+            rollback();
             throw new BusinessException("Se produjo un error en la base de datos.", e);
         } finally {
             Jdbc.close(rs, ps);
@@ -207,6 +214,15 @@ public class GradeGatewayImpl implements GradeGateway {
             ps.execute();
         } finally {
             Jdbc.close(ps);
+        }
+    }
+
+    private void rollback() {
+        if(connection==null)
+            return;
+        try {
+            connection.rollback();
+        } catch (SQLException ignored) {
         }
     }
 }

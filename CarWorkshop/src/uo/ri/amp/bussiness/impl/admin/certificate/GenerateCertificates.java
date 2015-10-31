@@ -18,25 +18,19 @@ import java.util.Map;
 public class GenerateCertificates {
 
     public void execute() throws BusinessException {
-
         CertificateGateway certificateGateway = PersistenceFactory.getCertificateGateway();
         Connection connection = null;
-
         try {
             connection = Jdbc.getConnection();
             connection.setAutoCommit(false);
             certificateGateway.setConnection(connection);
-
             List<Map<String, Object>> result = certificateGateway.listExpertsWithoutCertificate();
-
             List<Certificado> certificados = new LinkedList<>();
-            for(Map<String, Object> map : result){
+            for (Map<String, Object> map : result) {
                 Certificado certificado = new Certificado();
                 certificado.setIdmecanico(Long.parseLong(map.get("idMecanico").toString()));
                 certificado.setIdTipoVehiculo(Long.parseLong(map.get("idTipoVehiculo").toString()));
-
                 certificados.add(certificado);
-                //certificateGateway.generateCertificates(certificado);
             }
             certificateGateway.generateCertificates(certificados);
         } catch (SQLException e) {

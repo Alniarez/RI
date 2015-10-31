@@ -8,13 +8,16 @@ import uo.ri.common.BusinessException;
  * Created by Jorge.
  */
 public interface ForemanService {
-    public void addBreakdown(Averia averia) throws BusinessException;
-    public void updateBreakdown(Averia averia) throws BusinessException;
 
-    public void assignBreakdown(Averia averia) throws BusinessException;
-    public String listCompetentMechanics(Vehiculo vehiculo) throws BusinessException;
+    void addBreakdown(Averia averia) throws BusinessException;
 
-    public String listBreakdownHistory(Vehiculo vehiculo) throws BusinessException;
+    void updateBreakdown(Averia averia) throws BusinessException;
+
+    void assignBreakdown(Averia averia) throws BusinessException;
+
+    String listCompetentMechanics(Vehiculo vehiculo) throws BusinessException;
+
+    String listBreakdownHistory(Vehiculo vehiculo) throws BusinessException;
 
     void removeBreakdown(Averia averia) throws BusinessException;
 }

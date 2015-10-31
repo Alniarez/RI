@@ -18,17 +18,13 @@ public class ListGrades {
     private List<Map<String, Object>> result;
 
     public void execute() throws BusinessException {
-
         GradeGateway gradegateway = PersistenceFactory.getGradeGateway();
         Connection connection = null;
-
         try {
             connection = Jdbc.getConnection();
             connection.setAutoCommit(false);
             gradegateway.setConnection(connection);
-
             result = gradegateway.listGrades();
-
         } catch (SQLException e) {
             throw new BusinessException("No se encuentra la base de datos.", e);
         } finally {
@@ -37,9 +33,8 @@ public class ListGrades {
     }
 
     public String getPrintableResult() {
-
         StringBuilder sb = new StringBuilder("Código\tNombre del curso\tHoras totales\tDescripción\n");
-        for(Map<String, Object> fila: result){
+        for (Map<String, Object> fila : result) {
             sb.append(fila.get("codigo"));
             sb.append("\t\t");
             sb.append(fila.get("nombre"));
@@ -49,8 +44,6 @@ public class ListGrades {
             sb.append(fila.get("descripcion"));
             sb.append("\n");
         }
-
         return sb.toString();
-
     }
 }

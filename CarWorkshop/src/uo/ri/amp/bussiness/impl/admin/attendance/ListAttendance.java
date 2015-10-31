@@ -30,18 +30,14 @@ public class ListAttendance {
         AttendanceGateway attendanceGateway = PersistenceFactory.getAttendanceGateway();
         GradeGateway gradeGateway = PersistenceFactory.getGradeGateway();
         Connection connection = null;
-
         try {
             connection = Jdbc.getConnection();
             connection.setAutoCommit(false);
             attendanceGateway.setConnection(connection);
             gradeGateway.setConnection(connection);
-
-            if(! gradeGateway.exists(curso))
+            if (!gradeGateway.exists(curso))
                 throw new BusinessException("No existe el curso.");
-
             result = attendanceGateway.listAttendance(curso);
-
         } catch (SQLException e) {
             throw new BusinessException("No se encuentra la base de datos.", e);
         } finally {
@@ -51,7 +47,7 @@ public class ListAttendance {
 
     public String getPrintableResult() {
         StringBuilder sb = new StringBuilder("ID Mecnánico\tFecha de inicio\tFecha de finalización\t% de asisetncia\tCalificación\n");
-        for(Map<String, Object> fila: result){
+        for (Map<String, Object> fila : result) {
             sb.append(fila.get("idMecanico"));
             sb.append("\t\t");
             sb.append(fila.get("fechaIn"));

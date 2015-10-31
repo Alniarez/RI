@@ -35,7 +35,6 @@ public class MecanicoGatewayImpl implements MecanicoGateway{
 
     @Override
     public void save(String nombre, String apellidos) throws BusinessException {
-        //TODO sql aparte
         String SQL = "insert into TMecanicos(nombre, apellidos) values (?, ?)";
 
         PreparedStatement pst = null;

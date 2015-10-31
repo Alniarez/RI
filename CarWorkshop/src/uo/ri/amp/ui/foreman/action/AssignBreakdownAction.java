@@ -42,7 +42,7 @@ public class AssignBreakdownAction implements Action {
         if(readString("¿Desea ver la lista de mecánicos? (y/n)").equalsIgnoreCase("y"))
             System.out.println(ServiceFactory.getForemanService().listCompetentMechanics(vehiculo));
 
-        long idMecanico = readLong("ID de mecánico.");
+        long idMecanico = readLong("ID de mecánico");
 
         // Generar modelo
         Mecanico mecanico = new Mecanico();
@@ -58,6 +58,6 @@ public class AssignBreakdownAction implements Action {
         ServiceFactory.getForemanService().assignBreakdown(averia);
 
         //Mostrar resultado
-        println("Se ha eliminado la avería correctamente.");
+        println("Se ha asignado la avería correctamente.");
     }
 }

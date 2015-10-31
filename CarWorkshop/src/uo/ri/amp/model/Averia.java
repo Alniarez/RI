@@ -63,7 +63,7 @@ public class Averia {
     Vehiculo vehiculo;
     Mecanico mecanico;
 
-    public enum AveriaStatus {ABIERTA, ASIGNADA, FINALIZADA, TERMINADA }
+    public enum AveriaStatus {ABIERTA, ASIGNADA, FINALIZADA, TERMINADA}
 }
 
 

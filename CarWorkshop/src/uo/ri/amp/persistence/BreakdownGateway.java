@@ -26,7 +26,7 @@ public interface BreakdownGateway {
 
     void updateBreakdown(Averia averia) throws BusinessException;
 
-    List<Map<String,Object>> listBreakdownHistory(Vehiculo vehiculo);
+    List<Map<String,Object>> listBreakdownHistory(Vehiculo vehiculo) throws BusinessException;
 
 
 }

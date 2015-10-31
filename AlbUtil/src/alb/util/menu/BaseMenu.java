@@ -45,7 +45,12 @@ public abstract class BaseMenu implements Action{
 	protected void processOption(int option) throws Exception {
 		if (option == EXIT) return;
 		
-		Class<Action> actionClass = actions.get(option - 1);
+		Class<Action> actionClass = null;
+		try{
+			actionClass = actions.get(option - 1);
+		} catch (IndexOutOfBoundsException e){
+			System.err.println("Eliga una opción adecuada del menú.");
+		}
 		if (actionClass == null) return;
 		
 		createInstanceOf( actionClass ).execute();

@@ -5,5 +5,7 @@ Universidad de Oviedo
 
 31/10/2015
 
-```Jorge Sierra Miranda
-UO226566```
+```
+Jorge Sierra Miranda
+UO226566
+```
